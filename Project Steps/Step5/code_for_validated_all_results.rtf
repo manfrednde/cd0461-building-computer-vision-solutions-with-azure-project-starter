@@ -1,0 +1,375 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red157\green0\blue210;\red255\green255\blue255;\red0\green0\blue0;
+\red32\green108\blue135;\red101\green76\blue29;\red11\green90\blue180;\red144\green1\blue18;\red0\green0\blue109;
+\red0\green0\blue255;\red19\green118\blue70;\red15\green112\blue1;}
+{\*\expandedcolortbl;;\cssrgb\c68627\c0\c85882;\cssrgb\c100000\c100000\c100000;\cssrgb\c0\c0\c0;
+\cssrgb\c14902\c49804\c60000;\cssrgb\c47451\c36863\c14902;\cssrgb\c0\c43922\c75686;\cssrgb\c63922\c8235\c8235;\cssrgb\c0\c6275\c50196;
+\cssrgb\c0\c0\c100000;\cssrgb\c3529\c52549\c34510;\cssrgb\c0\c50196\c0;}
+\margl1440\margr1440\vieww22460\viewh12660\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs24 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 import\cf0 \strokec4  \cf5 \strokec5 sys\cf0 \cb1 \strokec4 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \cf5 \strokec5 os\cf0 \cb1 \strokec4 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \cf5 \strokec5 datetime\cf0 \cb1 \strokec4 \
+\
+\cf2 \cb3 \strokec2 from\cf0 \strokec4  \cf5 \strokec5 PIL\cf0 \strokec4  \cf2 \strokec2 import\cf0 \strokec4  \cf5 \strokec5 Image\cf0 \cb1 \strokec4 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \cf5 \strokec5 io\cf0 \cb1 \strokec4 \
+\
+\cf2 \cb3 \strokec2 from\cf0 \strokec4  \cf5 \strokec5 matplotlib\cf0 \strokec4 .\cf5 \strokec5 pyplot\cf0 \strokec4  \cf2 \strokec2 import\cf0 \strokec4  \cf6 \strokec6 imshow\cf0 \cb1 \strokec4 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \cf5 \strokec5 matplotlib\cf0 \strokec4 .\cf5 \strokec5 pyplot\cf0 \strokec4  \cf2 \strokec2 as\cf0 \strokec4  \cf5 \strokec5 plt\cf0 \cb1 \strokec4 \
+\
+\
+\cf2 \cb3 \strokec2 from\cf0 \strokec4  \cf5 \strokec5 urllib\cf0 \strokec4 .\cf5 \strokec5 parse\cf0 \strokec4  \cf2 \strokec2 import\cf0 \strokec4  \cf6 \strokec6 urlparse\cf0 \cb1 \strokec4 \
+\cf2 \cb3 \strokec2 from\cf0 \strokec4  \cf5 \strokec5 io\cf0 \strokec4  \cf2 \strokec2 import\cf0 \strokec4  \cf5 \strokec5 BytesIO\cf0 \cb1 \strokec4 \
+\cf2 \cb3 \strokec2 from\cf0 \strokec4  \cf5 \strokec5 PIL\cf0 \strokec4  \cf2 \strokec2 import\cf0 \strokec4  \cf5 \strokec5 Image\cf0 \strokec4 , \cf5 \strokec5 ImageDraw\cf0 \cb1 \strokec4 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \cf5 \strokec5 requests\cf0 \cb1 \strokec4 \
+\cf2 \cb3 \strokec2 from\cf0 \strokec4  \cf5 \strokec5 io\cf0 \strokec4  \cf2 \strokec2 import\cf0 \strokec4  \cf5 \strokec5 BytesIO\cf0 \cb1 \strokec4 \
+\
+\cf2 \cb3 \strokec2 from\cf0 \strokec4  \cf5 \strokec5 video_indexer\cf0 \strokec4  \cf2 \strokec2 import\cf0 \strokec4  \cf5 \strokec5 VideoIndexer\cf0 \cb1 \strokec4 \
+\cf2 \cb3 \strokec2 from\cf0 \strokec4  \cf5 \strokec5 azure\cf0 \strokec4 .\cf5 \strokec5 cognitiveservices\cf0 \strokec4 .\cf5 \strokec5 vision\cf0 \strokec4 .\cf5 \strokec5 face\cf0 \strokec4  \cf2 \strokec2 import\cf0 \strokec4  \cf5 \strokec5 FaceClient\cf0 \cb1 \strokec4 \
+\cf2 \cb3 \strokec2 from\cf0 \strokec4  \cf5 \strokec5 azure\cf0 \strokec4 .\cf5 \strokec5 cognitiveservices\cf0 \strokec4 .\cf5 \strokec5 vision\cf0 \strokec4 .\cf5 \strokec5 face\cf0 \strokec4 .\cf5 \strokec5 models\cf0 \strokec4  \cf2 \strokec2 import\cf0 \strokec4  \cf5 \strokec5 TrainingStatusType\cf0 \cb1 \strokec4 \
+\cf2 \cb3 \strokec2 from\cf0 \strokec4  \cf5 \strokec5 msrest\cf0 \strokec4 .\cf5 \strokec5 authentication\cf0 \strokec4  \cf2 \strokec2 import\cf0 \strokec4  \cf5 \strokec5 CognitiveServicesCredentials\cf0 \cb1 \strokec4 \
+\
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \cf5 \strokec5 pandas\cf0 \strokec4  \cf2 \strokec2 as\cf0 \strokec4  \cf5 \strokec5 pd\cf0 \cb1 \strokec4 \
+\
+\cf7 \cb3 \strokec7 CONFIG\cf0 \cb3 \strokec4  = \{\cb1 \
+\cb3     \cf8 \cb3 \strokec8 'SUBSCRIPTION_KEY'\cf0 \cb3 \strokec4 : \cf8 \cb3 \strokec8 '621d1daaa9ff4041bc484d4f7b9d5d10'\cf0 \cb3 \strokec4 ,\cb1 \
+\cb3     \cf8 \cb3 \strokec8 'LOCATION'\cf0 \cb3 \strokec4 : \cf8 \cb3 \strokec8 'trial'\cf0 \cb3 \strokec4 ,\cb1 \
+\cb3     \cf8 \cb3 \strokec8 'ACCOUNT_ID'\cf0 \cb3 \strokec4 : \cf8 \cb3 \strokec8 '6723d089-da1a-41ab-ae6a-7074c23d084b'\cf0 \cb1 \strokec4 \
+\cb3 \}\cb1 \
+\
+\cf9 \cb3 \strokec9 video_analysis\cf0 \cb3 \strokec4  = \cf5 \strokec5 VideoIndexer\cf0 \strokec4 (\cb1 \
+\cb3     \cf9 \cb3 \strokec9 vi_subscription_key\cf0 \cb3 \strokec4 =\cf7 \cb3 \strokec7 CONFIG\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'SUBSCRIPTION_KEY'\cf0 \cb3 \strokec4 ],\cb1 \
+\cb3     \cf9 \cb3 \strokec9 vi_location\cf0 \cb3 \strokec4 =\cf7 \cb3 \strokec7 CONFIG\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'LOCATION'\cf0 \cb3 \strokec4 ],\cb1 \
+\cb3     \cf9 \cb3 \strokec9 vi_account_id\cf0 \cb3 \strokec4 =\cf7 \cb3 \strokec7 CONFIG\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'ACCOUNT_ID'\cf0 \cb3 \strokec4 ]\cb1 \
+\cb3 )\cb1 \
+\
+\cf5 \cb3 \strokec5 sys\cf0 \strokec4 .\cf9 \cb3 \strokec9 path\cf0 \cb3 \strokec4 .\cf6 \strokec6 append\cf0 \strokec4 (\cf8 \cb3 \strokec8 "/Users/manfrednde/Library/Python/3.9/lib/python/site-packages"\cf0 \cb3 \strokec4 )\cb1 \
+\
+\cf2 \cb3 \strokec2 from\cf0 \strokec4  \cf5 \strokec5 azure\cf0 \strokec4 .\cf5 \strokec5 core\cf0 \strokec4 .\cf5 \strokec5 credentials\cf0 \strokec4  \cf2 \strokec2 import\cf0 \strokec4  \cf5 \strokec5 AzureKeyCredential\cf0 \cb1 \strokec4 \
+\cf2 \cb3 \strokec2 from\cf0 \strokec4  \cf5 \strokec5 azure\cf0 \strokec4 .\cf5 \strokec5 ai\cf0 \strokec4 .\cf5 \strokec5 formrecognizer\cf0 \strokec4  \cf2 \strokec2 import\cf0 \strokec4  \cf5 \strokec5 FormRecognizerClient\cf0 \cb1 \strokec4 \
+\cf2 \cb3 \strokec2 from\cf0 \strokec4  \cf5 \strokec5 azure\cf0 \strokec4 .\cf5 \strokec5 ai\cf0 \strokec4 .\cf5 \strokec5 formrecognizer\cf0 \strokec4  \cf2 \strokec2 import\cf0 \strokec4  \cf5 \strokec5 FormTrainingClient\cf0 \cb1 \strokec4 \
+\cf2 \cb3 \strokec2 from\cf0 \strokec4  \cf5 \strokec5 azure\cf0 \strokec4 .\cf5 \strokec5 core\cf0 \strokec4 .\cf5 \strokec5 credentials\cf0 \strokec4  \cf2 \strokec2 import\cf0 \strokec4  \cf5 \strokec5 AzureKeyCredential\cf0 \cb1 \strokec4 \
+\
+\
+\
+\cf7 \cb3 \strokec7 AZURE_FORM_RECOGNIZER_ENDPOINT\cf0 \cb3 \strokec4  = \cf8 \cb3 \strokec8 "https://formrecogniserbaording.cognitiveservices.azure.com/"\cf0 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7 AZURE_FORM_RECOGNIZER_KEY\cf0 \cb3 \strokec4  = \cf8 \cb3 \strokec8 "ad34b28b260a428f8c19e2dd366d0568"\cf0 \cb1 \strokec4 \
+\
+\cf9 \cb3 \strokec9 endpoint\cf0 \cb3 \strokec4  = \cf7 \cb3 \strokec7 AZURE_FORM_RECOGNIZER_ENDPOINT\cf0 \cb1 \strokec4 \
+\cf9 \cb3 \strokec9 key\cf0 \cb3 \strokec4  = \cf7 \cb3 \strokec7 AZURE_FORM_RECOGNIZER_KEY\cf0 \cb1 \strokec4 \
+\
+\cf7 \cb3 \strokec7 FACEIMAGE\cf0 \cb3 \strokec4  = \cf8 \cb3 \strokec8 "https://raw.githubusercontent.com/manfrednde/cd0461-building-computer-vision-solutions-with-azure-project-starter/master/starter/digital_id_template/ca-dl-avkash-chauhan.png"\cf0 \cb1 \strokec4 \
+\
+\cf7 \cb3 \strokec7 NEWTESTURL\cf0 \cb3 \strokec4  = \cf8 \cb3 \strokec8 "https://stbaordingkiosk.blob.core.windows.net/kiosk-container/boarding-avkash.pdf?sp=rcwd&st=2023-05-30T02:02:41Z&se=2023-07-08T10:02:41Z&sv=2022-11-02&sr=b&sig=WJVy6ScPlpk7\cf10 \strokec10 %2F\cf8 \strokec8 nCScaYBYJ5S%2BT80IWw3RTUWz08WXEA%3D"\cf0 \cb1 \strokec4 \
+\
+\cf9 \cb3 \strokec9 form_recognizer_client\cf0 \cb3 \strokec4  = \cf5 \strokec5 FormRecognizerClient\cf0 \strokec4 (\cf9 \cb3 \strokec9 endpoint\cf0 \cb3 \strokec4 =\cf9 \cb3 \strokec9 endpoint\cf0 \cb3 \strokec4 , \cf9 \cb3 \strokec9 credential\cf0 \cb3 \strokec4 =\cf5 \strokec5 AzureKeyCredential\cf0 \strokec4 (\cf9 \cb3 \strokec9 key\cf0 \cb3 \strokec4 ))\cb1 \
+\
+\cf9 \cb3 \strokec9 path_to_sample_documents\cf0 \cb3 \strokec4  = \cf5 \strokec5 os\cf0 \strokec4 .\cf9 \cb3 \strokec9 path\cf0 \cb3 \strokec4 .\cf6 \strokec6 abspath\cf0 \strokec4 (\cb1 \
+\cb3         \cf5 \strokec5 os\cf0 \strokec4 .\cf9 \cb3 \strokec9 path\cf0 \cb3 \strokec4 .\cf6 \strokec6 join\cf0 \strokec4 (\cb1 \
+\cb3             \cf5 \strokec5 os\cf0 \strokec4 .\cf9 \cb3 \strokec9 path\cf0 \cb3 \strokec4 .\cf6 \strokec6 abspath\cf0 \strokec4 (\cf9 \cb3 \strokec9 __file__\cf0 \cb3 \strokec4 ),\cb1 \
+\cb3             \cf8 \cb3 \strokec8 ".."\cf0 \cb3 \strokec4 ,\cb1 \
+\cb3             \cf8 \cb3 \strokec8 "./starter/digital_id_template/ca-dl-avkash.png"\cf0 \cb3 \strokec4 ,\cb1 \
+\cb3         )\cb1 \
+\cb3     )\cb1 \
+\
+\cf2 \cb3 \strokec2 with\cf0 \strokec4  \cf6 \strokec6 open\cf0 \strokec4 (\cf9 \cb3 \strokec9 path_to_sample_documents\cf0 \cb3 \strokec4 , \cf8 \cb3 \strokec8 "rb"\cf0 \cb3 \strokec4 ) \cf2 \strokec2 as\cf0 \strokec4  \cf9 \cb3 \strokec9 f\cf0 \cb3 \strokec4 : \cb1 \
+\cb3     \cf9 \cb3 \strokec9 id_content_from_url\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 form_recognizer_client\cf0 \cb3 \strokec4 .\cf6 \strokec6 begin_recognize_identity_documents\cf0 \strokec4 (\cf9 \cb3 \strokec9 identity_document\cf0 \cb3 \strokec4 =\cf9 \cb3 \strokec9 f\cf0 \cb3 \strokec4 )\cb1 \
+\
+\cf9 \cb3 \strokec9 collected_id_cards\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 id_content_from_url\cf0 \cb3 \strokec4 .\cf6 \strokec6 result\cf0 \strokec4 ()\cb1 \
+\
+\cf9 \cb3 \strokec9 collected_id_cards\cf0 \cb1 \strokec4 \
+\
+\cf5 \cb3 \strokec5 type\cf0 \strokec4 (\cf9 \cb3 \strokec9 collected_id_cards\cf0 \cb3 \strokec4 [\cf11 \cb3 \strokec11 0\cf0 \cb3 \strokec4 ])\cb1 \
+\
+\cf12 \cb3 \strokec12 # Processing the results\cf0 \cb1 \strokec4 \
+\cf10 \cb3 \strokec10 def\cf0 \cb3 \strokec4  \cf6 \strokec6 get_id_card_details\cf0 \strokec4 (\cf9 \cb3 \strokec9 identity_card\cf0 \cb3 \strokec4 ):\cb1 \
+\
+\cb3     \cf9 \cb3 \strokec9 first_name\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 identity_card\cf0 \cb3 \strokec4 .fields.get(\cf8 \cb3 \strokec8 "FirstName"\cf0 \cb3 \strokec4 )\cb1 \
+\cb3     \cf2 \strokec2 if\cf0 \strokec4  \cf9 \cb3 \strokec9 first_name\cf0 \cb3 \strokec4 :\cb1 \
+\cb3         \cf6 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 "First Name: \cf10 \strokec10 \{\}\cf8 \strokec8  has confidence: \cf10 \strokec10 \{\}\cf8 \strokec8 "\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (\cf9 \cb3 \strokec9 first_name\cf0 \cb3 \strokec4 .value, \cf9 \cb3 \strokec9 first_name\cf0 \cb3 \strokec4 .confidence))\cb1 \
+\cb3     \cf9 \cb3 \strokec9 last_name\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 identity_card\cf0 \cb3 \strokec4 .fields.get(\cf8 \cb3 \strokec8 "LastName"\cf0 \cb3 \strokec4 )\cb1 \
+\cb3     \cf2 \strokec2 if\cf0 \strokec4  \cf9 \cb3 \strokec9 last_name\cf0 \cb3 \strokec4 :\cb1 \
+\cb3         \cf6 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 "Last Name: \cf10 \strokec10 \{\}\cf8 \strokec8  has confidence: \cf10 \strokec10 \{\}\cf8 \strokec8 "\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (\cf9 \cb3 \strokec9 last_name\cf0 \cb3 \strokec4 .value, \cf9 \cb3 \strokec9 last_name\cf0 \cb3 \strokec4 .confidence))\cb1 \
+\cb3     \cf9 \cb3 \strokec9 document_number\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 identity_card\cf0 \cb3 \strokec4 .fields.get(\cf8 \cb3 \strokec8 "DocumentNumber"\cf0 \cb3 \strokec4 )\cb1 \
+\cb3     \cf2 \strokec2 if\cf0 \strokec4  \cf9 \cb3 \strokec9 document_number\cf0 \cb3 \strokec4 :\cb1 \
+\cb3         \cf6 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 "Document Number: \cf10 \strokec10 \{\}\cf8 \strokec8  has confidence: \cf10 \strokec10 \{\}\cf8 \strokec8 "\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (\cf9 \cb3 \strokec9 document_number\cf0 \cb3 \strokec4 .value, \cf9 \cb3 \strokec9 document_number\cf0 \cb3 \strokec4 .confidence))\cb1 \
+\cb3     \cf9 \cb3 \strokec9 dob\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 identity_card\cf0 \cb3 \strokec4 .fields.get(\cf8 \cb3 \strokec8 "DateOfBirth"\cf0 \cb3 \strokec4 )\cb1 \
+\cb3     \cf2 \strokec2 if\cf0 \strokec4  \cf9 \cb3 \strokec9 dob\cf0 \cb3 \strokec4 :\cb1 \
+\cb3         \cf6 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 "Date of Birth: \cf10 \strokec10 \{\}\cf8 \strokec8  has confidence: \cf10 \strokec10 \{\}\cf8 \strokec8 "\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (\cf9 \cb3 \strokec9 dob\cf0 \cb3 \strokec4 .value, \cf9 \cb3 \strokec9 dob\cf0 \cb3 \strokec4 .confidence))\cb1 \
+\cb3     \cf9 \cb3 \strokec9 doe\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 identity_card\cf0 \cb3 \strokec4 .fields.get(\cf8 \cb3 \strokec8 "DateOfExpiration"\cf0 \cb3 \strokec4 )\cb1 \
+\cb3     \cf2 \strokec2 if\cf0 \strokec4  \cf9 \cb3 \strokec9 doe\cf0 \cb3 \strokec4 :\cb1 \
+\cb3         \cf6 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 "Date of Expiration: \cf10 \strokec10 \{\}\cf8 \strokec8  has confidence: \cf10 \strokec10 \{\}\cf8 \strokec8 "\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (\cf9 \cb3 \strokec9 doe\cf0 \cb3 \strokec4 .value, \cf9 \cb3 \strokec9 doe\cf0 \cb3 \strokec4 .confidence))\cb1 \
+\cb3     \cf9 \cb3 \strokec9 sex\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 identity_card\cf0 \cb3 \strokec4 .fields.get(\cf8 \cb3 \strokec8 "Sex"\cf0 \cb3 \strokec4 )\cb1 \
+\cb3     \cf2 \strokec2 if\cf0 \strokec4  \cf9 \cb3 \strokec9 sex\cf0 \cb3 \strokec4 :\cb1 \
+\cb3         \cf6 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 "Sex: \cf10 \strokec10 \{\}\cf8 \strokec8  has confidence: \cf10 \strokec10 \{\}\cf8 \strokec8 "\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (\cf9 \cb3 \strokec9 sex\cf0 \cb3 \strokec4 .value, \cf9 \cb3 \strokec9 sex\cf0 \cb3 \strokec4 .confidence))\cb1 \
+\cb3     \cf9 \cb3 \strokec9 address\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 identity_card\cf0 \cb3 \strokec4 .fields.get(\cf8 \cb3 \strokec8 "Address"\cf0 \cb3 \strokec4 )\cb1 \
+\cb3     \cf2 \strokec2 if\cf0 \strokec4  \cf9 \cb3 \strokec9 address\cf0 \cb3 \strokec4 :\cb1 \
+\cb3         \cf6 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 "Address: \cf10 \strokec10 \{\}\cf8 \strokec8  has confidence: \cf10 \strokec10 \{\}\cf8 \strokec8 "\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (\cf9 \cb3 \strokec9 address\cf0 \cb3 \strokec4 .value, \cf9 \cb3 \strokec9 address\cf0 \cb3 \strokec4 .confidence))\cb1 \
+\cb3     \cf9 \cb3 \strokec9 country_region\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 identity_card\cf0 \cb3 \strokec4 .fields.get(\cf8 \cb3 \strokec8 "CountryRegion"\cf0 \cb3 \strokec4 )\cb1 \
+\cb3     \cf2 \strokec2 if\cf0 \strokec4  \cf9 \cb3 \strokec9 country_region\cf0 \cb3 \strokec4 :\cb1 \
+\cb3         \cf6 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 "Country/Region: \cf10 \strokec10 \{\}\cf8 \strokec8  has confidence: \cf10 \strokec10 \{\}\cf8 \strokec8 "\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (\cf9 \cb3 \strokec9 country_region\cf0 \cb3 \strokec4 .value, \cf9 \cb3 \strokec9 country_region\cf0 \cb3 \strokec4 .confidence))\cb1 \
+\cb3     \cf9 \cb3 \strokec9 region\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 identity_card\cf0 \cb3 \strokec4 .fields.get(\cf8 \cb3 \strokec8 "Region"\cf0 \cb3 \strokec4 )\cb1 \
+\cb3     \cf2 \strokec2 if\cf0 \strokec4  \cf9 \cb3 \strokec9 region\cf0 \cb3 \strokec4 :\cb1 \
+\cb3         \cf6 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 "Region: \cf10 \strokec10 \{\}\cf8 \strokec8  has confidence: \cf10 \strokec10 \{\}\cf8 \strokec8 "\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (\cf9 \cb3 \strokec9 region\cf0 \cb3 \strokec4 .value, \cf9 \cb3 \strokec9 region\cf0 \cb3 \strokec4 .confidence))\cb1 \
+\
+\cb3     \cf2 \strokec2 return\cf0 \strokec4  \cf9 \cb3 \strokec9 first_name\cf0 \cb3 \strokec4 .value, \cf9 \cb3 \strokec9 last_name\cf0 \cb3 \strokec4 .value, \cf9 \cb3 \strokec9 dob\cf0 \cb3 \strokec4 .value\cb1 \
+\
+\cf9 \cb3 \strokec9 idFirstName\cf0 \cb3 \strokec4 , \cf9 \cb3 \strokec9 idLastName\cf0 \cb3 \strokec4 , \cf9 \cb3 \strokec9 idDob\cf0 \cb3 \strokec4  = \cf6 \strokec6 get_id_card_details\cf0 \strokec4 (\cf9 \cb3 \strokec9 collected_id_cards\cf0 \cb3 \strokec4 [\cf11 \cb3 \strokec11 0\cf0 \cb3 \strokec4 ])\cb1 \
+\
+\cf6 \cb3 \strokec6 print\cf0 \strokec4 (\cf9 \cb3 \strokec9 idFirstName\cf0 \cb3 \strokec4 )\cb1 \
+\cf6 \cb3 \strokec6 print\cf0 \strokec4 (\cf9 \cb3 \strokec9 idLastName\cf0 \cb3 \strokec4 )\cb1 \
+\cf6 \cb3 \strokec6 print\cf0 \strokec4 (\cf9 \cb3 \strokec9 idDob\cf0 \cb3 \strokec4 )\cb1 \
+\
+\
+\cf12 \cb3 \strokec12 ############### DONE ready from ID\cf0 \cb1 \strokec4 \
+\
+\cf9 \cb3 \strokec9 form_training_client\cf0 \cb3 \strokec4  = \cf5 \strokec5 FormTrainingClient\cf0 \strokec4 (\cf9 \cb3 \strokec9 endpoint\cf0 \cb3 \strokec4 =\cf9 \cb3 \strokec9 endpoint\cf0 \cb3 \strokec4 , \cf9 \cb3 \strokec9 credential\cf0 \cb3 \strokec4 =\cf5 \strokec5 AzureKeyCredential\cf0 \strokec4 (\cf9 \cb3 \strokec9 key\cf0 \cb3 \strokec4 ))\cb1 \
+\
+\cf9 \cb3 \strokec9 saved_model_list\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 form_training_client\cf0 \cb3 \strokec4 .\cf6 \strokec6 list_custom_models\cf0 \strokec4 ()\cb1 \
+\
+\cf9 \cb3 \strokec9 custom_model_info\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 form_training_client\cf0 \cb3 \strokec4 .\cf6 \strokec6 get_custom_model\cf0 \strokec4 (\cf9 \cb3 \strokec9 model_id\cf0 \cb3 \strokec4 =\cf8 \cb3 \strokec8 "1a8a813a-339c-475b-a438-307bab368d3a"\cf0 \cb3 \strokec4 )\cb1 \
+\cf12 \cb3 \strokec12 # custom_model_info = form_training_client.get_custom_model(model_id=custom_model.model_id)\cf0 \cb1 \strokec4 \
+\cf6 \cb3 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 "Model ID: \cf10 \strokec10 \{\}\cf8 \strokec8 "\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (\cf9 \cb3 \strokec9 custom_model_info\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 model_id\cf0 \cb3 \strokec4 ))\cb1 \
+\cf6 \cb3 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 "Status: \cf10 \strokec10 \{\}\cf8 \strokec8 "\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (\cf9 \cb3 \strokec9 custom_model_info\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 status\cf0 \cb3 \strokec4 ))\cb1 \
+\cf6 \cb3 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 "Training started on: \cf10 \strokec10 \{\}\cf8 \strokec8 "\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (\cf9 \cb3 \strokec9 custom_model_info\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 training_started_on\cf0 \cb3 \strokec4 ))\cb1 \
+\cf6 \cb3 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 "Training completed on: \cf10 \strokec10 \{\}\cf8 \strokec8 "\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (\cf9 \cb3 \strokec9 custom_model_info\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 training_completed_on\cf0 \cb3 \strokec4 ))\cb1 \
+\
+\
+\cf12 \cb3 \strokec12 # Using an image document as test document URL (Not using PDF here)\cf0 \cb1 \strokec4 \
+\
+\cf9 \cb3 \strokec9 new_test_url\cf0 \cb3 \strokec4  = \cf7 \cb3 \strokec7 NEWTESTURL\cf0 \cb1 \strokec4 \
+\
+\cf9 \cb3 \strokec9 form_recognizer_client\cf0 \cb3 \strokec4  = \cf5 \strokec5 FormRecognizerClient\cf0 \strokec4 (\cf9 \cb3 \strokec9 endpoint\cf0 \cb3 \strokec4 =\cf9 \cb3 \strokec9 endpoint\cf0 \cb3 \strokec4 , \cf9 \cb3 \strokec9 credential\cf0 \cb3 \strokec4 =\cf5 \strokec5 AzureKeyCredential\cf0 \strokec4 (\cf9 \cb3 \strokec9 key\cf0 \cb3 \strokec4 ))\cb1 \
+\
+\cf9 \cb3 \strokec9 custom_model_info\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 model_id\cf0 \cb1 \strokec4 \
+\
+\cf9 \cb3 \strokec9 custom_test_action\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 form_recognizer_client\cf0 \cb3 \strokec4 .\cf6 \strokec6 begin_recognize_custom_forms_from_url\cf0 \strokec4 (\cf9 \cb3 \strokec9 model_id\cf0 \cb3 \strokec4 =\cf9 \cb3 \strokec9 custom_model_info\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 model_id\cf0 \cb3 \strokec4 , \cf9 \cb3 \strokec9 form_url\cf0 \cb3 \strokec4 =\cf9 \cb3 \strokec9 new_test_url\cf0 \cb3 \strokec4 )\cb1 \
+\
+\cf9 \cb3 \strokec9 custom_test_action\cf0 \cb3 \strokec4 .\cf6 \strokec6 status\cf0 \strokec4 ()\cb1 \
+\
+\cf9 \cb3 \strokec9 custom_test_action_result\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 custom_test_action\cf0 \cb3 \strokec4 .\cf6 \strokec6 result\cf0 \strokec4 ()\cb1 \
+\
+\
+\cf9 \cb3 \strokec9 boardingPassPassengerName\cf0 \cb3 \strokec4  = \cf8 \cb3 \strokec8 ""\cf0 \cb1 \strokec4 \
+\cf9 \cb3 \strokec9 boardingPassFlightNumber\cf0 \cb3 \strokec4  = \cf8 \cb3 \strokec8 ""\cf0 \cb1 \strokec4 \
+\cf9 \cb3 \strokec9 boardingPassSeat\cf0 \cb3 \strokec4  = \cf11 \cb3 \strokec11 0\cf0 \cb1 \strokec4 \
+\cf9 \cb3 \strokec9 boardingPassClass\cf0 \cb3 \strokec4  = \cf8 \cb3 \strokec8 ""\cf0 \cb1 \strokec4 \
+\cf9 \cb3 \strokec9 boardingPassOrigin\cf0 \cb3 \strokec4  = \cf8 \cb3 \strokec8 ""\cf0 \cb1 \strokec4 \
+\cf9 \cb3 \strokec9 boardingPassDestination\cf0 \cb3 \strokec4  = \cf8 \cb3 \strokec8 ""\cf0 \cb1 \strokec4 \
+\cf9 \cb3 \strokec9 boardingPassFlightDate\cf0 \cb3 \strokec4  = \cf8 \cb3 \strokec8 "April 20, 2022"\cf0 \cb1 \strokec4 \
+\cf9 \cb3 \strokec9 boardingPassFlightTime\cf0 \cb3 \strokec4  = \cf8 \cb3 \strokec8 "10:00 AM PST"\cf0 \cb1 \strokec4 \
+\
+\cf2 \cb3 \strokec2 for\cf0 \strokec4  \cf9 \cb3 \strokec9 recognized_content\cf0 \cb3 \strokec4  \cf2 \strokec2 in\cf0 \strokec4  \cf9 \cb3 \strokec9 custom_test_action_result\cf0 \cb3 \strokec4 :\cb1 \
+\cb3     \cf6 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 "Form type: \cf10 \strokec10 \{\}\cf8 \strokec8 "\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (\cf9 \cb3 \strokec9 recognized_content\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 form_type\cf0 \cb3 \strokec4 ))\cb1 \
+\cb3     \cf2 \strokec2 for\cf0 \strokec4  \cf9 \cb3 \strokec9 name\cf0 \cb3 \strokec4 , \cf9 \cb3 \strokec9 field\cf0 \cb3 \strokec4  \cf2 \strokec2 in\cf0 \strokec4  \cf9 \cb3 \strokec9 recognized_content\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 fields\cf0 \cb3 \strokec4 .\cf6 \strokec6 items\cf0 \strokec4 ():\cb1 \
+\cb3         \cf6 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 "Field '\cf10 \strokec10 \{\}\cf8 \strokec8 ' has label '\cf10 \strokec10 \{\}\cf8 \strokec8 ' with value '\cf10 \strokec10 \{\}\cf8 \strokec8 ' and a confidence score of \cf10 \strokec10 \{\}\cf8 \strokec8 "\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (\cb1 \
+\cb3             \cf9 \cb3 \strokec9 name\cf0 \cb3 \strokec4 ,\cb1 \
+\cb3             \cf9 \cb3 \strokec9 field\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 label_data\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 text\cf0 \cb3 \strokec4  \cf2 \strokec2 if\cf0 \strokec4  \cf9 \cb3 \strokec9 field\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 label_data\cf0 \cb3 \strokec4  \cf2 \strokec2 else\cf0 \strokec4  \cf9 \cb3 \strokec9 name\cf0 \cb3 \strokec4 ,\cb1 \
+\cb3             \cf9 \cb3 \strokec9 field\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 value\cf0 \cb3 \strokec4 ,\cb1 \
+\cb3             \cf9 \cb3 \strokec9 field\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 confidence\cf0 \cb1 \strokec4 \
+\cb3         ))\cb1 \
+\cb3         \cf2 \strokec2 if\cf0 \strokec4  \cf9 \cb3 \strokec9 name\cf0 \cb3 \strokec4  == \cf8 \cb3 \strokec8 'Passenger Name'\cf0 \cb3 \strokec4 :\cb1 \
+\cb3             \cf9 \cb3 \strokec9 boardingPassPassengerName\cf0 \cb3 \strokec4  = \cf5 \strokec5 str\cf0 \strokec4 (\cf9 \cb3 \strokec9 field\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 value\cf0 \cb3 \strokec4 ).\cf6 \strokec6 lower\cf0 \strokec4 ()\cb1 \
+\cb3             \cf6 \strokec6 print\cf0 \strokec4 (\cf9 \cb3 \strokec9 boardingPassPassengerName\cf0 \cb3 \strokec4 )\cb1 \
+\cb3         \cf2 \strokec2 if\cf0 \strokec4  \cf9 \cb3 \strokec9 name\cf0 \cb3 \strokec4  == \cf8 \cb3 \strokec8 'Flight Number'\cf0 \cb3 \strokec4 :\cb1 \
+\cb3             \cf9 \cb3 \strokec9 boardingPassFlightNumber\cf0 \cb3 \strokec4  = \cf5 \strokec5 str\cf0 \strokec4 (\cf9 \cb3 \strokec9 field\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 value\cf0 \cb3 \strokec4 ).\cf6 \strokec6 lower\cf0 \strokec4 ()\cb1 \
+\cb3             \cf6 \strokec6 print\cf0 \strokec4 (\cf9 \cb3 \strokec9 boardingPassFlightNumber\cf0 \cb3 \strokec4 )\cb1 \
+\cb3         \cf2 \strokec2 if\cf0 \strokec4  \cf9 \cb3 \strokec9 name\cf0 \cb3 \strokec4  == \cf8 \cb3 \strokec8 'Seat'\cf0 \cb3 \strokec4 :\cb1 \
+\cb3             \cf9 \cb3 \strokec9 boardingPassSeat\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 field\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 value\cf0 \cb1 \strokec4 \
+\cb3             \cf6 \strokec6 print\cf0 \strokec4 (\cf9 \cb3 \strokec9 boardingPassSeat\cf0 \cb3 \strokec4 )\cb1 \
+\cb3         \cf2 \strokec2 if\cf0 \strokec4  \cf9 \cb3 \strokec9 name\cf0 \cb3 \strokec4  == \cf8 \cb3 \strokec8 'Class'\cf0 \cb3 \strokec4 :\cb1 \
+\cb3             \cf9 \cb3 \strokec9 boardingPassClass\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 field\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 value\cf0 \cb1 \strokec4 \
+\cb3             \cf6 \strokec6 print\cf0 \strokec4 (\cf9 \cb3 \strokec9 boardingPassClass\cf0 \cb3 \strokec4 )\cb1 \
+\cb3         \cf2 \strokec2 if\cf0 \strokec4  \cf9 \cb3 \strokec9 name\cf0 \cb3 \strokec4  == \cf8 \cb3 \strokec8 'From'\cf0 \cb3 \strokec4 :\cb1 \
+\cb3             \cf9 \cb3 \strokec9 boardingPassOrigin\cf0 \cb3 \strokec4  = \cf5 \strokec5 str\cf0 \strokec4 (\cf9 \cb3 \strokec9 field\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 value\cf0 \cb3 \strokec4 ).\cf6 \strokec6 lower\cf0 \strokec4 ()\cb1 \
+\cb3             \cf6 \strokec6 print\cf0 \strokec4 (\cf9 \cb3 \strokec9 boardingPassOrigin\cf0 \cb3 \strokec4 )\cb1 \
+\cb3         \cf2 \strokec2 if\cf0 \strokec4  \cf9 \cb3 \strokec9 name\cf0 \cb3 \strokec4  == \cf8 \cb3 \strokec8 'To'\cf0 \cb3 \strokec4 :\cb1 \
+\cb3             \cf9 \cb3 \strokec9 boardingPassDestination\cf0 \cb3 \strokec4  = \cf5 \strokec5 str\cf0 \strokec4 (\cf9 \cb3 \strokec9 field\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 value\cf0 \cb3 \strokec4 ).\cf6 \strokec6 lower\cf0 \strokec4 ()\cb1 \
+\cb3             \cf6 \strokec6 print\cf0 \strokec4 (\cf9 \cb3 \strokec9 boardingPassDestination\cf0 \cb3 \strokec4 )\cb1 \
+\cb3         \cf2 \strokec2 if\cf0 \strokec4  \cf9 \cb3 \strokec9 name\cf0 \cb3 \strokec4  == \cf8 \cb3 \strokec8 'Date'\cf0 \cb3 \strokec4 :\cb1 \
+\cb3             \cf9 \cb3 \strokec9 boardingPassFlightDate\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 field\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 value\cf0 \cb1 \strokec4 \
+\cb3             \cf6 \strokec6 print\cf0 \strokec4 (\cf9 \cb3 \strokec9 boardingPassFlightDate\cf0 \cb3 \strokec4 )\cb1 \
+\cb3         \cf2 \strokec2 if\cf0 \strokec4  \cf9 \cb3 \strokec9 name\cf0 \cb3 \strokec4  == \cf8 \cb3 \strokec8 'Boarding Time'\cf0 \cb3 \strokec4 :\cb1 \
+\cb3             \cf9 \cb3 \strokec9 boardingPassFlightTime\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 field\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 value\cf0 \cb1 \strokec4 \
+\cb3             \cf6 \strokec6 print\cf0 \strokec4 (\cf9 \cb3 \strokec9 boardingPassFlightTime\cf0 \cb3 \strokec4 )\cb1 \
+\
+\cf12 \cb3 \strokec12 # reading the csv file\cf0 \cb1 \strokec4 \
+\cf9 \cb3 \strokec9 df\cf0 \cb3 \strokec4  = \cf5 \strokec5 pd\cf0 \strokec4 .\cf6 \strokec6 read_csv\cf0 \strokec4 (\cf8 \cb3 \strokec8 "./starter/step0/FlightManifest.csv"\cf0 \cb3 \strokec4 )\cb1 \
+\cf7 \cb3 \strokec7 CUSTOMER_INDEX\cf0 \cb3 \strokec4  = \cf11 \cb3 \strokec11 0\cf0 \cb1 \strokec4 \
+\cf2 \cb3 \strokec2 for\cf0 \strokec4  \cf9 \cb3 \strokec9 index\cf0 \cb3 \strokec4 , \cf9 \cb3 \strokec9 row\cf0 \cb3 \strokec4  \cf2 \strokec2 in\cf0 \strokec4  \cf9 \cb3 \strokec9 df\cf0 \cb3 \strokec4 .\cf6 \strokec6 iterrows\cf0 \strokec4 ():\cb1 \
+\cb3     \cf9 \cb3 \strokec9 manifestPassengerFullName\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 row\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'First Name'\cf0 \cb3 \strokec4 ].lower() + \cf8 \cb3 \strokec8 " "\cf0 \cb3 \strokec4  + \cf9 \cb3 \strokec9 row\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'Last Name'\cf0 \cb3 \strokec4 ].lower()\cb1 \
+\cb3     \cf9 \cb3 \strokec9 manifestDateofBirth\cf0 \cb3 \strokec4  = \cf5 \strokec5 datetime\cf0 \strokec4 .\cf5 \strokec5 datetime\cf0 \strokec4 .\cf6 \strokec6 strptime\cf0 \strokec4 (\cf9 \cb3 \strokec9 row\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'DateofBirth'\cf0 \cb3 \strokec4 ], \cf8 \cb3 \strokec8 '\cf10 \strokec10 %d\cf8 \strokec8  %B %Y'\cf0 \cb3 \strokec4 ).\cf6 \strokec6 date\cf0 \strokec4 ()\cb1 \
+\cb3     \cf6 \strokec6 print\cf0 \strokec4 (\cf9 \cb3 \strokec9 manifestPassengerFullName\cf0 \cb3 \strokec4 )\cb1 \
+\cb3     \cf6 \strokec6 print\cf0 \strokec4 (\cf9 \cb3 \strokec9 manifestDateofBirth\cf0 \cb3 \strokec4 )\cb1 \
+\
+\cb3     \cf2 \strokec2 if\cf0 \strokec4  \cf9 \cb3 \strokec9 row\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'First Name'\cf0 \cb3 \strokec4 ].lower() == \cf9 \cb3 \strokec9 idFirstName\cf0 \cb3 \strokec4 .lower() \cf10 \cb3 \strokec10 and\cf0 \cb3 \strokec4  \cf9 \cb3 \strokec9 row\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'Last Name'\cf0 \cb3 \strokec4 ].lower() == \cf9 \cb3 \strokec9 idLastName\cf0 \cb3 \strokec4 .lower() \cf10 \cb3 \strokec10 and\cf0 \cb3 \strokec4  \cf9 \cb3 \strokec9 boardingPassPassengerName\cf0 \cb3 \strokec4  == \cf9 \cb3 \strokec9 manifestPassengerFullName\cf0 \cb3 \strokec4 :\cb1 \
+\cb3         \cf9 \cb3 \strokec9 df\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 at\cf0 \cb3 \strokec4 [\cf9 \cb3 \strokec9 index\cf0 \cb3 \strokec4 , \cf8 \cb3 \strokec8 'NameValidation'\cf0 \cb3 \strokec4 ] = \cf10 \cb3 \strokec10 True\cf0 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 print\cf0 \strokec4 (\cf9 \cb3 \strokec9 index\cf0 \cb3 \strokec4 )\cb1 \
+\cb3         \cf7 \cb3 \strokec7 CUSTOMER_INDEX\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 index\cf0 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 print\cf0 \strokec4 (\cf9 \cb3 \strokec9 row\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'First Name'\cf0 \cb3 \strokec4 ])\cb1 \
+\cb3         \cf6 \strokec6 print\cf0 \strokec4 (\cf9 \cb3 \strokec9 row\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'Last Name'\cf0 \cb3 \strokec4 ])\cb1 \
+\cb3         \cf12 \cb3 \strokec12 # writing into the file\cf0 \cb1 \strokec4 \
+\cb3         \cf9 \cb3 \strokec9 df\cf0 \cb3 \strokec4 .\cf6 \strokec6 to_csv\cf0 \strokec4 (\cf8 \cb3 \strokec8 "./starter/step0/FlightManifest.csv"\cf0 \cb3 \strokec4 , \cf9 \cb3 \strokec9 index\cf0 \cb3 \strokec4 =\cf10 \cb3 \strokec10 False\cf0 \cb3 \strokec4 )\cb1 \
+\
+\cb3     \cf2 \strokec2 if\cf0 \strokec4  \cf9 \cb3 \strokec9 manifestDateofBirth\cf0 \cb3 \strokec4  == \cf9 \cb3 \strokec9 idDob\cf0 \cb3 \strokec4 :\cb1 \
+\cb3         \cf9 \cb3 \strokec9 df\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 at\cf0 \cb3 \strokec4 [\cf9 \cb3 \strokec9 index\cf0 \cb3 \strokec4 , \cf8 \cb3 \strokec8 'DoBValidation'\cf0 \cb3 \strokec4 ] = \cf10 \cb3 \strokec10 True\cf0 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 print\cf0 \strokec4 (\cf9 \cb3 \strokec9 index\cf0 \cb3 \strokec4 )\cb1 \
+\cb3         \cf6 \strokec6 print\cf0 \strokec4 (\cf9 \cb3 \strokec9 row\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'DateofBirth'\cf0 \cb3 \strokec4 ])\cb1 \
+\cb3         \cf12 \cb3 \strokec12 # writing into the file\cf0 \cb1 \strokec4 \
+\cb3         \cf9 \cb3 \strokec9 df\cf0 \cb3 \strokec4 .\cf6 \strokec6 to_csv\cf0 \strokec4 (\cf8 \cb3 \strokec8 "./starter/step0/FlightManifest.csv"\cf0 \cb3 \strokec4 , \cf9 \cb3 \strokec9 index\cf0 \cb3 \strokec4 =\cf10 \cb3 \strokec10 False\cf0 \cb3 \strokec4 )\cb1 \
+\
+\cb3     \cf2 \strokec2 if\cf0 \strokec4  \cf9 \cb3 \strokec9 row\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'Flight No.'\cf0 \cb3 \strokec4 ] == \cf9 \cb3 \strokec9 boardingPassFlightNumber\cf0 \cb3 \strokec4  \cf10 \cb3 \strokec10 and\cf0 \cb3 \strokec4  \cf9 \cb3 \strokec9 row\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'seat'\cf0 \cb3 \strokec4 ] == \cf9 \cb3 \strokec9 boardingPassSeat\cf0 \cb3 \strokec4  \cf10 \cb3 \strokec10 and\cf0 \cb3 \strokec4  \cf9 \cb3 \strokec9 row\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'Class'\cf0 \cb3 \strokec4 ] == \cf9 \cb3 \strokec9 boardingPassClass\cf0 \cb3 \strokec4  \cf10 \cb3 \strokec10 and\cf0 \cb3 \strokec4  \cf9 \cb3 \strokec9 row\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'From'\cf0 \cb3 \strokec4 ] == \cf9 \cb3 \strokec9 boardingPassOrigin\cf0 \cb3 \strokec4  \cf10 \cb3 \strokec10 and\cf0 \cb3 \strokec4  \cf9 \cb3 \strokec9 row\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'To'\cf0 \cb3 \strokec4 ] == \cf9 \cb3 \strokec9 boardingPassDestination\cf0 \cb3 \strokec4  \cf10 \cb3 \strokec10 and\cf0 \cb3 \strokec4  \cf9 \cb3 \strokec9 row\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'Boarding Time'\cf0 \cb3 \strokec4 ] == \cf9 \cb3 \strokec9 boardingPassFlightTime\cf0 \cb3 \strokec4  \cf10 \cb3 \strokec10 and\cf0 \cb3 \strokec4  \cf9 \cb3 \strokec9 row\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'Date'\cf0 \cb3 \strokec4 ] == \cf9 \cb3 \strokec9 boardingPassFlightDate\cf0 \cb3 \strokec4 :\cb1 \
+\cb3         \cf9 \cb3 \strokec9 df\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 at\cf0 \cb3 \strokec4 [\cf9 \cb3 \strokec9 index\cf0 \cb3 \strokec4 , \cf8 \cb3 \strokec8 'BoardingPassValidation'\cf0 \cb3 \strokec4 ] = \cf10 \cb3 \strokec10 True\cf0 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 "Boarding Pass Validated"\cf0 \cb3 \strokec4 )\cb1 \
+\cb3         \cf6 \strokec6 print\cf0 \strokec4 (\cf9 \cb3 \strokec9 index\cf0 \cb3 \strokec4 )\cb1 \
+\cb3         \cf9 \cb3 \strokec9 df\cf0 \cb3 \strokec4 .\cf6 \strokec6 to_csv\cf0 \strokec4 (\cf8 \cb3 \strokec8 "./starter/step0/FlightManifest.csv"\cf0 \cb3 \strokec4 , \cf9 \cb3 \strokec9 index\cf0 \cb3 \strokec4 =\cf10 \cb3 \strokec10 False\cf0 \cb3 \strokec4 )\cb1 \
+\
+\
+\cf12 \cb3 \strokec12 ###########################\cf0 \cb1 \strokec4 \
+\
+\cf12 \cb3 \strokec12 # Detect face\cf0 \cb1 \strokec4 \
+\
+\
+\
+\cf9 \cb3 \strokec9 video_analysis\cf0 \cb3 \strokec4 .\cf6 \strokec6 check_access_token\cf0 \strokec4 ()\cb1 \
+\
+\cf9 \cb3 \strokec9 video_id\cf0 \cb3 \strokec4  = \cf8 \cb3 \strokec8 '30fa204ae0'\cf0 \cb1 \strokec4 \
+\
+\cf9 \cb3 \strokec9 video_analysis\cf0 \cb3 \strokec4 .\cf6 \strokec6 get_video_info\cf0 \strokec4 (\cf9 \cb3 \strokec9 video_id\cf0 \cb3 \strokec4 )\cb1 \
+\
+\cf9 \cb3 \strokec9 info\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 video_analysis\cf0 \cb3 \strokec4 .\cf6 \strokec6 get_video_info\cf0 \strokec4 (\cf9 \cb3 \strokec9 video_id\cf0 \cb3 \strokec4 , \cf9 \cb3 \strokec9 video_language\cf0 \cb3 \strokec4 =\cf8 \cb3 \strokec8 'English'\cf0 \cb3 \strokec4 )\cb1 \
+\
+\cf2 \cb3 \strokec2 if\cf0 \strokec4  \cf6 \strokec6 len\cf0 \strokec4 (\cf9 \cb3 \strokec9 info\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'videos'\cf0 \cb3 \strokec4 ][\cf11 \cb3 \strokec11 0\cf0 \cb3 \strokec4 ][\cf8 \cb3 \strokec8 'insights'\cf0 \cb3 \strokec4 ][\cf8 \cb3 \strokec8 'faces'\cf0 \cb3 \strokec4 ][\cf11 \cb3 \strokec11 0\cf0 \cb3 \strokec4 ][\cf8 \cb3 \strokec8 'thumbnails'\cf0 \cb3 \strokec4 ]):\cb1 \
+\cb3     \cf6 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 "We found \cf10 \strokec10 \{\}\cf8 \strokec8  faces in this video."\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (\cf5 \strokec5 str\cf0 \strokec4 (\cf6 \strokec6 len\cf0 \strokec4 (\cf9 \cb3 \strokec9 info\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'videos'\cf0 \cb3 \strokec4 ][\cf11 \cb3 \strokec11 0\cf0 \cb3 \strokec4 ][\cf8 \cb3 \strokec8 'insights'\cf0 \cb3 \strokec4 ][\cf8 \cb3 \strokec8 'faces'\cf0 \cb3 \strokec4 ][\cf11 \cb3 \strokec11 0\cf0 \cb3 \strokec4 ][\cf8 \cb3 \strokec8 'thumbnails'\cf0 \cb3 \strokec4 ]))))\cb1 \
+\
+\cf12 \cb3 \strokec12 # info['videos'][0]['insights']['faces'][0]['thumbnails']\cf0 \cb1 \strokec4 \
+\
+\cf9 \cb3 \strokec9 images\cf0 \cb3 \strokec4  = []\cb1 \
+\cf9 \cb3 \strokec9 img_raw\cf0 \cb3 \strokec4  = []\cb1 \
+\cf9 \cb3 \strokec9 img_strs\cf0 \cb3 \strokec4  = []\cb1 \
+\cf2 \cb3 \strokec2 for\cf0 \strokec4  \cf9 \cb3 \strokec9 each_thumb\cf0 \cb3 \strokec4  \cf2 \strokec2 in\cf0 \strokec4  \cf9 \cb3 \strokec9 info\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'videos'\cf0 \cb3 \strokec4 ][\cf11 \cb3 \strokec11 0\cf0 \cb3 \strokec4 ][\cf8 \cb3 \strokec8 'insights'\cf0 \cb3 \strokec4 ][\cf8 \cb3 \strokec8 'faces'\cf0 \cb3 \strokec4 ][\cf11 \cb3 \strokec11 0\cf0 \cb3 \strokec4 ][\cf8 \cb3 \strokec8 'thumbnails'\cf0 \cb3 \strokec4 ]:\cb1 \
+\cb3     \cf2 \strokec2 if\cf0 \strokec4  \cf8 \cb3 \strokec8 'fileName'\cf0 \cb3 \strokec4  \cf10 \cb3 \strokec10 in\cf0 \cb3 \strokec4  \cf9 \cb3 \strokec9 each_thumb\cf0 \cb3 \strokec4  \cf10 \cb3 \strokec10 and\cf0 \cb3 \strokec4  \cf8 \cb3 \strokec8 'id'\cf0 \cb3 \strokec4  \cf10 \cb3 \strokec10 in\cf0 \cb3 \strokec4  \cf9 \cb3 \strokec9 each_thumb\cf0 \cb3 \strokec4 :\cb1 \
+\cb3         \cf9 \cb3 \strokec9 file_name\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 each_thumb\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'fileName'\cf0 \cb3 \strokec4 ]\cb1 \
+\cb3         \cf9 \cb3 \strokec9 thumb_id\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 each_thumb\cf0 \cb3 \strokec4 [\cf8 \cb3 \strokec8 'id'\cf0 \cb3 \strokec4 ]\cb1 \
+\cb3         \cf9 \cb3 \strokec9 img_code\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 video_analysis\cf0 \cb3 \strokec4 .\cf6 \strokec6 get_thumbnail_from_video_indexer\cf0 \strokec4 (\cf9 \cb3 \strokec9 video_id\cf0 \cb3 \strokec4 ,  \cf9 \cb3 \strokec9 thumb_id\cf0 \cb3 \strokec4 )\cb1 \
+\cb3         \cf9 \cb3 \strokec9 img_strs\cf0 \cb3 \strokec4 .\cf6 \strokec6 append\cf0 \strokec4 (\cf9 \cb3 \strokec9 img_code\cf0 \cb3 \strokec4 )\cb1 \
+\cb3         \cf9 \cb3 \strokec9 img_stream\cf0 \cb3 \strokec4  = \cf5 \strokec5 io\cf0 \strokec4 .\cf5 \strokec5 BytesIO\cf0 \strokec4 (\cf9 \cb3 \strokec9 img_code\cf0 \cb3 \strokec4 )\cb1 \
+\cb3         \cf9 \cb3 \strokec9 img_raw\cf0 \cb3 \strokec4 .\cf6 \strokec6 append\cf0 \strokec4 (\cf9 \cb3 \strokec9 img_stream\cf0 \cb3 \strokec4 )\cb1 \
+\cb3         \cf9 \cb3 \strokec9 img\cf0 \cb3 \strokec4  = \cf5 \strokec5 Image\cf0 \strokec4 .\cf6 \strokec6 open\cf0 \strokec4 (\cf9 \cb3 \strokec9 img_stream\cf0 \cb3 \strokec4 )\cb1 \
+\cb3         \cf9 \cb3 \strokec9 images\cf0 \cb3 \strokec4 .\cf6 \strokec6 append\cf0 \strokec4 (\cf9 \cb3 \strokec9 img\cf0 \cb3 \strokec4 )\cb1 \
+\
+\cf2 \cb3 \strokec2 for\cf0 \strokec4  \cf9 \cb3 \strokec9 img\cf0 \cb3 \strokec4  \cf2 \strokec2 in\cf0 \strokec4  \cf9 \cb3 \strokec9 images\cf0 \cb3 \strokec4 :\cb1 \
+\cb3     \cf6 \strokec6 print\cf0 \strokec4 (\cf9 \cb3 \strokec9 img\cf0 \cb3 \strokec4 .info)\cb1 \
+\cb3     \cf5 \strokec5 plt\cf0 \strokec4 .\cf6 \strokec6 figure\cf0 \strokec4 ()\cb1 \
+\cb3     \cf5 \strokec5 plt\cf0 \strokec4 .\cf6 \strokec6 imshow\cf0 \strokec4 (\cf9 \cb3 \strokec9 img\cf0 \cb3 \strokec4 )\cb1 \
+\
+\cf9 \cb3 \strokec9 i\cf0 \cb3 \strokec4  = \cf11 \cb3 \strokec11 1\cf0 \cb1 \strokec4 \
+\cf2 \cb3 \strokec2 for\cf0 \strokec4  \cf9 \cb3 \strokec9 img\cf0 \cb3 \strokec4  \cf2 \strokec2 in\cf0 \strokec4  \cf9 \cb3 \strokec9 images\cf0 \cb3 \strokec4 :\cb1 \
+\cb3     \cf12 \cb3 \strokec12 # print(type(img))\cf0 \cb1 \strokec4 \
+\cb3     \cf9 \cb3 \strokec9 img\cf0 \cb3 \strokec4 .save(\cf8 \cb3 \strokec8 'human-face'\cf0 \cb3 \strokec4  + \cf5 \strokec5 str\cf0 \strokec4 (\cf9 \cb3 \strokec9 i\cf0 \cb3 \strokec4 ) + \cf8 \cb3 \strokec8 '.jpg'\cf0 \cb3 \strokec4 )\cb1 \
+\cb3     \cf9 \cb3 \strokec9 i\cf0 \cb3 \strokec4 = \cf9 \cb3 \strokec9 i\cf0 \cb3 \strokec4 + \cf11 \cb3 \strokec11 1\cf0 \cb1 \strokec4 \
+\
+\
+\cf12 \cb3 \strokec12 ######\cf0 \cb1 \strokec4 \
+\
+\cf12 \cb3 \strokec12 # FACE \cf0 \cb1 \strokec4 \
+\
+\cf10 \cb3 \strokec10 def\cf0 \cb3 \strokec4  \cf6 \strokec6 show_image_in_cell\cf0 \strokec4 (\cf9 \cb3 \strokec9 face_url\cf0 \cb3 \strokec4 ):\cb1 \
+\cb3     \cf9 \cb3 \strokec9 response\cf0 \cb3 \strokec4  = \cf5 \strokec5 requests\cf0 \strokec4 .\cf6 \strokec6 get\cf0 \strokec4 (\cf9 \cb3 \strokec9 face_url\cf0 \cb3 \strokec4 )\cb1 \
+\cb3     \cf9 \cb3 \strokec9 img\cf0 \cb3 \strokec4  = \cf5 \strokec5 Image\cf0 \strokec4 .\cf6 \strokec6 open\cf0 \strokec4 (\cf5 \strokec5 BytesIO\cf0 \strokec4 (\cf9 \cb3 \strokec9 response\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 content\cf0 \cb3 \strokec4 ))\cb1 \
+\cb3     \cf5 \strokec5 plt\cf0 \strokec4 .\cf6 \strokec6 figure\cf0 \strokec4 (\cf9 \cb3 \strokec9 figsize\cf0 \cb3 \strokec4 =(\cf11 \cb3 \strokec11 20\cf0 \cb3 \strokec4 ,\cf11 \cb3 \strokec11 10\cf0 \cb3 \strokec4 ))\cb1 \
+\cb3     \cf5 \strokec5 plt\cf0 \strokec4 .\cf6 \strokec6 imshow\cf0 \strokec4 (\cf9 \cb3 \strokec9 img\cf0 \cb3 \strokec4 )\cb1 \
+\cb3     \cf5 \strokec5 plt\cf0 \strokec4 .\cf6 \strokec6 show\cf0 \strokec4 ()\cb1 \
+\
+\cf10 \cb3 \strokec10 def\cf0 \cb3 \strokec4  \cf6 \strokec6 show_image_object_in_cell\cf0 \strokec4 (\cf9 \cb3 \strokec9 image_object\cf0 \cb3 \strokec4 ):\cb1 \
+\cb3     \cf5 \strokec5 plt\cf0 \strokec4 .\cf6 \strokec6 figure\cf0 \strokec4 (\cf9 \cb3 \strokec9 figsize\cf0 \cb3 \strokec4 =(\cf11 \cb3 \strokec11 20\cf0 \cb3 \strokec4 ,\cf11 \cb3 \strokec11 10\cf0 \cb3 \strokec4 ))\cb1 \
+\cb3     \cf5 \strokec5 plt\cf0 \strokec4 .\cf6 \strokec6 imshow\cf0 \strokec4 (\cf9 \cb3 \strokec9 image_object\cf0 \cb3 \strokec4 )\cb1 \
+\cb3     \cf5 \strokec5 plt\cf0 \strokec4 .\cf6 \strokec6 show\cf0 \strokec4 ()\cb1 \
+\
+\cf12 \cb3 \strokec12 # # Convert width height to a point in a rectangle\cf0 \cb1 \strokec4 \
+\cf10 \cb3 \strokec10 def\cf0 \cb3 \strokec4  \cf6 \strokec6 getRectangle\cf0 \strokec4 (\cf9 \cb3 \strokec9 faceDictionary\cf0 \cb3 \strokec4 ):\cb1 \
+\cb3     \cf9 \cb3 \strokec9 rect\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 faceDictionary\cf0 \cb3 \strokec4 .face_rectangle\cb1 \
+\cb3     \cf9 \cb3 \strokec9 left\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 rect\cf0 \cb3 \strokec4 .left\cb1 \
+\cb3     \cf9 \cb3 \strokec9 top\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 rect\cf0 \cb3 \strokec4 .top\cb1 \
+\cb3     \cf9 \cb3 \strokec9 right\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 left\cf0 \cb3 \strokec4  + \cf9 \cb3 \strokec9 rect\cf0 \cb3 \strokec4 .width\cb1 \
+\cb3     \cf9 \cb3 \strokec9 bottom\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 top\cf0 \cb3 \strokec4  + \cf9 \cb3 \strokec9 rect\cf0 \cb3 \strokec4 .height\cb1 \
+\cb3     \cf2 \strokec2 return\cf0 \strokec4  ((\cf9 \cb3 \strokec9 left\cf0 \cb3 \strokec4 , \cf9 \cb3 \strokec9 top\cf0 \cb3 \strokec4 ), (\cf9 \cb3 \strokec9 right\cf0 \cb3 \strokec4 , \cf9 \cb3 \strokec9 bottom\cf0 \cb3 \strokec4 ))\cb1 \
+\
+\cf10 \cb3 \strokec10 def\cf0 \cb3 \strokec4  \cf6 \strokec6 drawFaceRectangles\cf0 \strokec4 (\cf9 \cb3 \strokec9 source_file\cf0 \cb3 \strokec4 , \cf9 \cb3 \strokec9 detected_face_object\cf0 \cb3 \strokec4 ) :\cb1 \
+\cb3     \cf12 \cb3 \strokec12 # Download the image from the url\cf0 \cb1 \strokec4 \
+\cb3     \cf9 \cb3 \strokec9 response\cf0 \cb3 \strokec4  = \cf5 \strokec5 requests\cf0 \strokec4 .\cf6 \strokec6 get\cf0 \strokec4 (\cf9 \cb3 \strokec9 source_file\cf0 \cb3 \strokec4 )\cb1 \
+\cb3     \cf9 \cb3 \strokec9 img\cf0 \cb3 \strokec4  = \cf5 \strokec5 Image\cf0 \strokec4 .\cf6 \strokec6 open\cf0 \strokec4 (\cf5 \strokec5 BytesIO\cf0 \strokec4 (\cf9 \cb3 \strokec9 response\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 content\cf0 \cb3 \strokec4 ))\cb1 \
+\cb3     \cf12 \cb3 \strokec12 # Draw a red box around every detected faces\cf0 \cb1 \strokec4 \
+\cb3     \cf9 \cb3 \strokec9 draw\cf0 \cb3 \strokec4  = \cf5 \strokec5 ImageDraw\cf0 \strokec4 .\cf6 \strokec6 Draw\cf0 \strokec4 (\cf9 \cb3 \strokec9 img\cf0 \cb3 \strokec4 )\cb1 \
+\cb3     \cf2 \strokec2 for\cf0 \strokec4  \cf9 \cb3 \strokec9 face\cf0 \cb3 \strokec4  \cf2 \strokec2 in\cf0 \strokec4  \cf9 \cb3 \strokec9 detected_face_object\cf0 \cb3 \strokec4 :\cb1 \
+\cb3         \cf9 \cb3 \strokec9 draw\cf0 \cb3 \strokec4 .\cf6 \strokec6 rectangle\cf0 \strokec4 (\cf6 \strokec6 getRectangle\cf0 \strokec4 (\cf9 \cb3 \strokec9 face\cf0 \cb3 \strokec4 ), \cf9 \cb3 \strokec9 outline\cf0 \cb3 \strokec4 =\cf8 \cb3 \strokec8 'red'\cf0 \cb3 \strokec4 , \cf9 \cb3 \strokec9 width\cf0 \cb3 \strokec4  = \cf11 \cb3 \strokec11 10\cf0 \cb3 \strokec4 )\cb1 \
+\cb3     \cf2 \strokec2 return\cf0 \strokec4  \cf9 \cb3 \strokec9 img\cf0 \cb1 \strokec4 \
+\
+\cf7 \cb3 \strokec7 FACE_KEY\cf0 \cb3 \strokec4  = \cf8 \cb3 \strokec8 "7fdd7dabd63240ff9a8f0f29f2fc4411"\cf0 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7 FACE_ENDPOINT\cf0 \cb3 \strokec4  = \cf8 \cb3 \strokec8 "https://face-boarding1.cognitiveservices.azure.com"\cf0 \cb1 \strokec4 \
+\
+\cf9 \cb3 \strokec9 face_client\cf0 \cb3 \strokec4  = \cf5 \strokec5 FaceClient\cf0 \strokec4 (\cf7 \cb3 \strokec7 FACE_ENDPOINT\cf0 \cb3 \strokec4 , \cf5 \strokec5 CognitiveServicesCredentials\cf0 \strokec4 (\cf7 \cb3 \strokec7 FACE_KEY\cf0 \cb3 \strokec4 ))\cb1 \
+\
+\cf9 \cb3 \strokec9 face_client\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 api_version\cf0 \cb1 \strokec4 \
+\cf9 \cb3 \strokec9 face_image\cf0 \cb3 \strokec4  = \cf7 \cb3 \strokec7 FACEIMAGE\cf0 \cb1 \strokec4 \
+\cf9 \cb3 \strokec9 selected_image\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 face_image\cf0 \cb1 \strokec4 \
+\
+\
+\cf12 \cb3 \strokec12 # Detect Face form an image\cf0 \cb1 \strokec4 \
+\cf10 \cb3 \strokec10 def\cf0 \cb3 \strokec4  \cf6 \strokec6 detect_face_from_any_url\cf0 \strokec4 (\cf9 \cb3 \strokec9 selected_image\cf0 \cb3 \strokec4 ):\cb1 \
+\cb3     \cf9 \cb3 \strokec9 detected_faces\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 face_client\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 face\cf0 \cb3 \strokec4 .\cf6 \strokec6 detect_with_url\cf0 \strokec4 (\cf9 \cb3 \strokec9 url\cf0 \cb3 \strokec4 =\cf9 \cb3 \strokec9 selected_image\cf0 \cb3 \strokec4 , \cf9 \cb3 \strokec9 detection_model\cf0 \cb3 \strokec4 =\cf8 \cb3 \strokec8 'detection_03'\cf0 \cb3 \strokec4 )\cb1 \
+\cb3     \cf2 \strokec2 if\cf0 \strokec4  \cf10 \cb3 \strokec10 not\cf0 \cb3 \strokec4  \cf9 \cb3 \strokec9 detected_faces\cf0 \cb3 \strokec4 :\cb1 \
+\cb3           \cf2 \strokec2 raise\cf0 \strokec4  \cf5 \strokec5 Exception\cf0 \strokec4 (\cf8 \cb3 \strokec8 'No face detected from image \cf10 \strokec10 \{\}\cf8 \strokec8 '\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (single_image_name))        \cb1 \
+\cb3     \cf6 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 'Total face(s) detected  from \cf10 \strokec10 \{\}\cf8 \strokec8 '\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (\cf5 \strokec5 str\cf0 \strokec4 (\cf6 \strokec6 len\cf0 \strokec4 (\cf9 \cb3 \strokec9 detected_faces\cf0 \cb3 \strokec4 )))) \cf12 \cb3 \strokec12 # type: ignore\cf0 \cb1 \strokec4 \
+\cb3     \cf2 \strokec2 return\cf0 \strokec4  \cf9 \cb3 \strokec9 detected_faces\cf0 \cb1 \strokec4 \
+\
+\cf12 \cb3 \strokec12 # Define a function to output the faces detected\cf0 \cb1 \strokec4 \
+\cf10 \cb3 \strokec10 def\cf0 \cb3 \strokec4  \cf6 \strokec6 list_all_faces_from_detected_face_object\cf0 \strokec4 (\cf9 \cb3 \strokec9 detected_faces_object\cf0 \cb3 \strokec4 ):\cb1 \
+\cb3     \cf6 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 'We found total \cf10 \strokec10 \{\}\cf8 \strokec8  face(s) in selected face detected object.'\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (\cf5 \strokec5 str\cf0 \strokec4 (\cf6 \strokec6 len\cf0 \strokec4 (\cf9 \cb3 \strokec9 detected_faces_object\cf0 \cb3 \strokec4 ))))\cb1 \
+\cb3     \cf9 \cb3 \strokec9 face_ids\cf0 \cb3 \strokec4  =  []\cb1 \
+\cb3     \cf2 \strokec2 for\cf0 \strokec4  \cf9 \cb3 \strokec9 face\cf0 \cb3 \strokec4  \cf2 \strokec2 in\cf0 \strokec4  \cf9 \cb3 \strokec9 detected_faces_object\cf0 \cb3 \strokec4 : \cb1 \
+\cb3         \cf9 \cb3 \strokec9 face_ids\cf0 \cb3 \strokec4 .\cf6 \strokec6 append\cf0 \strokec4 (\cf9 \cb3 \strokec9 face\cf0 \cb3 \strokec4 .face_id)\cb1 \
+\cb3         \cf6 \strokec6 print\cf0 \strokec4  (\cf9 \cb3 \strokec9 face\cf0 \cb3 \strokec4 .face_id)\cb1 \
+\cb3         \cf6 \strokec6 print\cf0 \strokec4  (\cf9 \cb3 \strokec9 face\cf0 \cb3 \strokec4 )\cb1 \
+\cb3     \cf2 \strokec2 return\cf0 \strokec4  \cf9 \cb3 \strokec9 face_ids\cf0 \cb1 \strokec4 \
+\
+\cf9 \cb3 \strokec9 detected_faces_object\cf0 \cb3 \strokec4  = \cf6 \strokec6 detect_face_from_any_url\cf0 \strokec4 (\cf9 \cb3 \strokec9 selected_image\cf0 \cb3 \strokec4 )\cb1 \
+\cf9 \cb3 \strokec9 face_ids_from_id_card\cf0 \cb3 \strokec4  = \cf6 \strokec6 list_all_faces_from_detected_face_object\cf0 \strokec4 (\cf9 \cb3 \strokec9 detected_faces_object\cf0 \cb3 \strokec4 )\cb1 \
+\
+\
+\
+\cf10 \cb3 \strokec10 def\cf0 \cb3 \strokec4  \cf6 \strokec6 detect_face_from_stream\cf0 \strokec4 (\cf9 \cb3 \strokec9 selected_image\cf0 \cb3 \strokec4 ):\cb1 \
+\cb3     \cf9 \cb3 \strokec9 detected_faces\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 face_client\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 face\cf0 \cb3 \strokec4 .\cf6 \strokec6 detect_with_stream\cf0 \strokec4 (\cf9 \cb3 \strokec9 selected_image\cf0 \cb3 \strokec4 , \cf9 \cb3 \strokec9 detection_model\cf0 \cb3 \strokec4 =\cf8 \cb3 \strokec8 'detection_03'\cf0 \cb3 \strokec4 )\cb1 \
+\cb3     \cf2 \strokec2 if\cf0 \strokec4  \cf10 \cb3 \strokec10 not\cf0 \cb3 \strokec4  \cf9 \cb3 \strokec9 detected_faces\cf0 \cb3 \strokec4 :\cb1 \
+\cb3          \cf2 \strokec2 raise\cf0 \strokec4  \cf5 \strokec5 Exception\cf0 \strokec4 (\cf8 \cb3 \strokec8 'No face detected from image \cf10 \strokec10 \{\}\cf8 \strokec8 '\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (single_image_name))        \cb1 \
+\cb3     \cf6 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 'Total face(s) detected  from \cf10 \strokec10 \{\}\cf8 \strokec8 '\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (\cf5 \strokec5 str\cf0 \strokec4 (\cf6 \strokec6 len\cf0 \strokec4 (\cf9 \cb3 \strokec9 detected_faces\cf0 \cb3 \strokec4 )))) \cf12 \cb3 \strokec12 # type: ignore\cf0 \cb1 \strokec4 \
+\cb3     \cf2 \strokec2 return\cf0 \strokec4  \cf9 \cb3 \strokec9 detected_faces\cf0 \cb1 \strokec4 \
+\
+\
+\cf9 \cb3 \strokec9 face_fd\cf0 \cb3 \strokec4  =  \cf6 \strokec6 open\cf0 \strokec4 (\cf8 \cb3 \strokec8 "human-face1.jpg"\cf0 \cb3 \strokec4 , \cf8 \cb3 \strokec8 "rb"\cf0 \cb3 \strokec4 )\cb1 \
+\
+\cf9 \cb3 \strokec9 video_detected_faces_object\cf0 \cb3 \strokec4  = \cf6 \strokec6 detect_face_from_stream\cf0 \strokec4 (\cf9 \cb3 \strokec9 face_fd\cf0 \cb3 \strokec4 )\cb1 \
+\
+\cf9 \cb3 \strokec9 face_ids_from_video\cf0 \cb3 \strokec4  = \cf6 \strokec6 list_all_faces_from_detected_face_object\cf0 \strokec4 (\cf9 \cb3 \strokec9 video_detected_faces_object\cf0 \cb3 \strokec4 )\cb1 \
+\
+\
+\cf9 \cb3 \strokec9 verify_result_same\cf0 \cb3 \strokec4  = \cf9 \cb3 \strokec9 face_client\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 face\cf0 \cb3 \strokec4 .\cf6 \strokec6 verify_face_to_face\cf0 \strokec4 (\cf9 \cb3 \strokec9 face_ids_from_video\cf0 \cb3 \strokec4 [\cf11 \cb3 \strokec11 0\cf0 \cb3 \strokec4 ], \cf9 \cb3 \strokec9 face_ids_from_id_card\cf0 \cb3 \strokec4 [\cf11 \cb3 \strokec11 0\cf0 \cb3 \strokec4 ])\cb1 \
+\
+\cf2 \cb3 \strokec2 if\cf0 \strokec4  \cf9 \cb3 \strokec9 verify_result_same\cf0 \cb3 \strokec4 .is_identical: \cf12 \cb3 \strokec12 # type: ignore\cf0 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 "Faces are Similar"\cf0 \cb3 \strokec4 )\cb1 \
+\cb3     \cf6 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 'Faces from \cf10 \strokec10 \{\}\cf8 \strokec8  & \cf10 \strokec10 \{\}\cf8 \strokec8  are of the same person, with confidence: \cf10 \strokec10 \{\}\cf8 \strokec8 '\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (\cf9 \cb3 \strokec9 face_ids_from_video\cf0 \cb3 \strokec4 [\cf11 \cb3 \strokec11 0\cf0 \cb3 \strokec4 ], \cf9 \cb3 \strokec9 face_ids_from_id_card\cf0 \cb3 \strokec4 [\cf11 \cb3 \strokec11 0\cf0 \cb3 \strokec4 ], \cf9 \cb3 \strokec9 verify_result_same\cf0 \cb3 \strokec4 .confidence)) \cf12 \cb3 \strokec12 # type: ignore\cf0 \cb1 \strokec4 \
+\cb3     \cf9 \cb3 \strokec9 df\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 at\cf0 \cb3 \strokec4 [\cf7 \cb3 \strokec7 CUSTOMER_INDEX\cf0 \cb3 \strokec4 , \cf8 \cb3 \strokec8 'PersonValidation'\cf0 \cb3 \strokec4 ] = \cf10 \cb3 \strokec10 True\cf0 \cb1 \strokec4 \
+\cb3     \cf12 \cb3 \strokec12 # writing into the file\cf0 \cb1 \strokec4 \
+\cb3     \cf9 \cb3 \strokec9 df\cf0 \cb3 \strokec4 .\cf6 \strokec6 to_csv\cf0 \strokec4 (\cf8 \cb3 \strokec8 "./starter/step0/FlightManifest.csv"\cf0 \cb3 \strokec4 , \cf9 \cb3 \strokec9 index\cf0 \cb3 \strokec4 =\cf10 \cb3 \strokec10 False\cf0 \cb3 \strokec4 )\cb1 \
+\cf2 \cb3 \strokec2 else\cf0 \strokec4 :\cb1 \
+\cb3     \cf6 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 "Faces are not Similar"\cf0 \cb3 \strokec4 )\cb1 \
+\cb3     \cf6 \strokec6 print\cf0 \strokec4 (\cf8 \cb3 \strokec8 'Faces from \cf10 \strokec10 \{\}\cf8 \strokec8  & \cf10 \strokec10 \{\}\cf8 \strokec8  are of a different person, with confidence: \cf10 \strokec10 \{\}\cf8 \strokec8 '\cf0 \cb3 \strokec4 .\cf6 \strokec6 format\cf0 \strokec4 (\cf9 \cb3 \strokec9 face_ids_from_video\cf0 \cb3 \strokec4 [\cf11 \cb3 \strokec11 0\cf0 \cb3 \strokec4 ], \cf9 \cb3 \strokec9 face_ids_from_video\cf0 \cb3 \strokec4 [\cf11 \cb3 \strokec11 0\cf0 \cb3 \strokec4 ], \cf9 \cb3 \strokec9 verify_result_same\cf0 \cb3 \strokec4 .confidence)) \cf12 \cb3 \strokec12 # type: ignore\cf0 \cb1 \strokec4 \
+\cb3     \cf9 \cb3 \strokec9 df\cf0 \cb3 \strokec4 .\cf9 \cb3 \strokec9 at\cf0 \cb3 \strokec4 [\cf7 \cb3 \strokec7 CUSTOMER_INDEX\cf0 \cb3 \strokec4 , \cf8 \cb3 \strokec8 'PersonValidation'\cf0 \cb3 \strokec4 ] = \cf10 \cb3 \strokec10 False\cf0 \cb1 \strokec4 \
+\cb3     \cf12 \cb3 \strokec12 # writing into the file\cf0 \cb1 \strokec4 \
+\cb3     \cf9 \cb3 \strokec9 df\cf0 \cb3 \strokec4 .\cf6 \strokec6 to_csv\cf0 \strokec4 (\cf8 \cb3 \strokec8 "./starter/step0/FlightManifest.csv"\cf0 \cb3 \strokec4 , \cf9 \cb3 \strokec9 index\cf0 \cb3 \strokec4 =\cf10 \cb3 \strokec10 False\cf0 \cb3 \strokec4 )\cb1 \
+\cf9 \cb3 \strokec9 face_fd\cf0 \cb3 \strokec4 .\cf6 \strokec6 close\cf0 \strokec4 ()\cb1 \
+}

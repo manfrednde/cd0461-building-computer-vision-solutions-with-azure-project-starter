@@ -1,0 +1,6 @@
+Carrier ,Flight No.,Class,From,To,Date,Baggage,Seat,Gate,Boarding Time,Ticket No,First Name,Last Name,Sex,DateofBirth,DoBValidation, PersonValidation, LuggageValidation, NameValidation, BoardingPassValidation
+UA,234,Economy,San Francisco,Chicago,"April 20, 2022",YES,20A,G1,10:00 AM PST,34236746,Avkash,Chauhan,M,1 January 1990,False,False,False,False,False
+UA,234,Economy,San Francisco,Chicago,"April 20, 2022",YES,1A,G1,10:00 AM PST,34236747,James,Webb,M,15 December 1970,False,False,False,False,False
+UA,234,Economy,San Francisco,Chicago,"April 20, 2022",No,25B,G1,10:00 AM PST,34236748,James,Jackson,M,12 October 1956,False,False,False,False,False
+UA,234,Business,San Francisco,Chicago,"April 20, 2022",No,3D,G1,10:00 AM PST,34236749, Libby,Herold,F,10 February 1996,False,False,False,False,False
+UA,234,Economy,San Francisco,Chicago,"April 20, 2022",YES,34B,G1,10:00 AM PST,34236750,Radha S,Kumar,F,5 March 1994,False,False,False,False,False
